@@ -6,7 +6,7 @@ sudo apt update && sudo apt upgrade -y
 # Instala Ubuntu Desktop (ejemplo: Ubuntu Desktop)
 # sudo apt install ubuntu-desktop-minimal
 # for pure and minimal installation of gnome
-sudo apt install gnome-session gnome-terminal
+sudo apt install gnome-session -y
 
 # Install auto-cpufreq for laptops
 if ! command -v auto-cpufreq &>/dev/null; then
