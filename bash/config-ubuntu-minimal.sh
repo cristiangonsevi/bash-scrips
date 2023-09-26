@@ -6,7 +6,6 @@ sudo sed -i 's/#$nrconf{restart} = .*/$nrconf{restart} = "a";/' /etc/needrestart
 # Muestra el contenido actual del archivo para verificar el cambio
 cat /etc/needrestart/needrestart.conf
 
-
 # Actualiza el sistema y los paquetes
 sudo apt update && sudo apt upgrade -y
 
@@ -16,23 +15,17 @@ echo "force-unsafe-io" | sudo tee /etc/dpkg/dpkg.cfg.d/01_nodoc
 # Instala Ubuntu Desktop (ejemplo: Ubuntu Desktop)
 # sudo apt install ubuntu-desktop-minimal
 # for pure and minimal installation of gnome
-sudo apt install gnome-session -y
+sudo apt install gnome-session nautilus ubuntu-wallpapers-jammy gnome-tweaks gnome-system-monitor gnome-software oxygen-cursor-theme htop rar libgtk2.0-0 libasound2 libdbus-glib-1-2 -y
 
-sudo apt-get install gnome-tweak-tool
-
-# Actualiza la lista de paquetes
-sudo apt update
-
-# Instala el tema del cursor Oxygen
-sudo apt install oxygen-cursor-theme -y
+gsettings set org.gnome.desktop.background picture-uri "/usr/share/backgrounds/warty-final-ubuntu.png"
 
 # Configura el tema del cursor Oxygen como el tema predeterminado
-sudo update-alternatives --config x-cursor-theme
+echo "2" | sudo update-alternatives --config x-cursor-theme && 1
 
 # Install auto-cpufreq for laptops
 if ! command -v auto-cpufreq &>/dev/null; then
     git clone https://github.com/AdnanHodzic/auto-cpufreq.git
-    cd auto-cpufreq && sudo ./auto-cpufreq-installer
+    cd auto-cpufreq && echo "i" | sudo ./auto-cpufreq-installer
 fi
 
 # Configure auto-cpufreq
@@ -71,21 +64,10 @@ done
 # Set colemak as the default keyboard layout
 setxkbmap us -variant colemak
 
-# Install Alacritty and other useful tools
+sudo apt install git curl wget build-essential -y
 
-# Install necesary packages to install alacrity
-sudo apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 -y
-
-# Install rust for alacrity
-sudo curl https://sh.rustup.rs -sSf | sh
-
-# Add repo for install alacrity
-sudo add-apt-repository ppa:aslatter/ppa -y
-
-sudo apt install alacritty git curl wget build-essential -y
-
-# Configure Alacritty as the default terminal
-sudo update-alternatives --config x-terminal-emulator
+# Configure Alacritty as the default terminal if there are more than one
+# sudo update-alternatives --config x-terminal-emulator
 
 # Install additional fonts (optional)
 sudo apt install fonts-firacode fonts-powerline -y
@@ -102,33 +84,15 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 # Install applications via Flatpak
 flatpak_apps=(
     "com.visualstudio.code"
-    "org.audacityteam.Audacity"
-    "com.bitwarden.desktop"
     "com.getpostman.Postman"
-    "com.google.Chrome"
-    "org.videolan.VLC"
-    "io.github.mimbrero.WhatsAppDesktop"
-    "org.gnome.baobab"
-    "com.obsproject.Studio"
     "com.brave.Browser"
-    "net.codeindustry.MasterPDFEditor"
-    "us.zoom.Zoom"
-    "org.mozilla.Thunderbird"
-    "com.github.IsmaelMartinez.teams_for_linux"
-    "io.missioncenter.MissionCenter"
-    "org.gnome.Calculator"
     "org.flameshot.Flameshot"
-    "org.gnome.Weather"
-    "org.gnome.Calendar"
-    "io.github.prateekmedia.appimagepool"
+    "io.dbeaver.DBeaverCommunity"
 )
 
 for app in "${flatpak_apps[@]}"; do
     flatpak install flathub "$app" -y
 done
-
-# Install Firefox Developer Edition dependencies
-sudo apt-get install libgtk2.0-0 libasound2 libdbus-glib-1-2 -y
 
 # Install Docker (optional)
 
@@ -177,10 +141,14 @@ fi
 # Install Git
 sudo apt install git -y
 
-# Install Oh My Zsh
-if ! [ -d ~/.oh-my-zsh ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
+# Install Oh My Bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+
+# Configura el tema de Powerline como predeterminado
+sed -i 's/OSH_THEME=".*"/OSH_THEME="powerline-multiline"/' ~/.bashrc
+
+# Recarga la configuración de la terminal
+source ~/.bashrc
 
 # Install Go
 if ! command -v go &>/dev/null; then
@@ -193,7 +161,6 @@ fi
 # Install AppImageLauncher
 wget https://github.com/TheAssassin/AppImageLauncher/releases/download/v2.2.0/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
 sudo dpkg -i appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
-sudo apt-get install -f
 rm -f appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
 
 # Install ResponsivelyApp
@@ -211,16 +178,6 @@ Type=Application
 Categories=Development;
 EOL
 sudo chmod +x "$app_dir/ResponsivelyApp.desktop"
-
-# Install MySQL Workbench
-wget https://dev.mysql.com/get/mysql-apt-config_0.8.16-1_all.deb
-sudo dpkg -i mysql-apt-config_0.8.16-1_all.deb
-sudo apt update
-sudo apt install mysql-workbench -y
-rm mysql-apt-config_0.8.16-1_all.deb
-
-# Install additional packages
-sudo apt install htop rar -y
 
 # Clean up unnecessary packages
 sudo apt autoremove -y
