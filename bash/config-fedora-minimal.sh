@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Cambia la configuración de needrestart para reiniciar automáticamente los servicios
-sudo sed -i 's/#$nrconf{restart} = .*/$nrconf{restart} = "a";/' /etc/needrestart/needrestart.conf
-
-# Muestra el contenido actual del archivo para verificar el cambio
-cat /etc/needrestart/needrestart.conf
-
 # Actualiza el sistema y los paquetes
 sudo dnf update -y
 
@@ -83,8 +77,12 @@ sudo dnf install python3-pip -y
 
 # Instala Flatpak
 # Allow install without prompt password
-flatpak remote-modify --system flathub --auth=<system|user>
 sudo dnf install flatpak -y
+
+# Allow install without prompt password
+flatpak remote-modify --system flathub --auth=<system|user>
+
+
 
 # Agrega el repositorio Flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
