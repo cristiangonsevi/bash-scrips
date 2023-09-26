@@ -15,7 +15,7 @@ echo "force-unsafe-io" | sudo tee /etc/dpkg/dpkg.cfg.d/01_nodoc
 # Instala Ubuntu Desktop (ejemplo: Ubuntu Desktop)
 # sudo apt install ubuntu-desktop-minimal
 # for pure and minimal installation of gnome
-sudo apt install gnome-session nautilus ubuntu-wallpapers-jammy gnome-tweaks gnome-system-monitor gnome-software oxygen-cursor-theme htop rar libgtk2.0-0 libasound2 libdbus-glib-1-2 -y
+sudo apt install gnome-session nautilus ubuntu-wallpapers-jammy gnome-terminal gnome-tweaks gnome-system-monitor gnome-software oxygen-cursor-theme htop rar libgtk2.0-0 libasound2 libdbus-glib-1-2 -y
 
 gsettings set org.gnome.desktop.background picture-uri "/usr/share/backgrounds/warty-final-ubuntu.png"
 
@@ -81,6 +81,10 @@ sudo apt install flatpak -y
 # add flatpak repo
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+# Allow install without prompt password
+flatpak remote-modify --system flathub --auth=<system|user>
+
+
 # Install applications via Flatpak
 flatpak_apps=(
     "com.visualstudio.code"
@@ -114,7 +118,7 @@ if ! command -v docker &>/dev/null; then
         sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
     sudo apt-get update
 
-    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
     sudo groupadd docker
     sudo usermod -aG docker $USER
     newgrp docker
@@ -185,3 +189,4 @@ sudo apt clean
 
 # Completion message
 echo "CONFIGURATION ENDED"
+sudo reboot
