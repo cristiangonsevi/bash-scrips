@@ -78,6 +78,8 @@ sudo dnf install fira-code-fonts powerline-fonts -y
 sudo dnf install python3-pip -y
 
 # Instala Flatpak
+# Allow install without prompt password
+flatpak remote-modify --system flathub --auth=<system|user>
 sudo dnf install flatpak -y
 
 # Agrega el repositorio Flatpak
