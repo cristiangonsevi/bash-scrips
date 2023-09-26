@@ -16,7 +16,11 @@ echo "assumeyes=1" | sudo tee -a /etc/dnf/dnf.conf
 sudo dnf groupinstall "Workstation" -y
 
 # Instala paquetes adicionales
-sudo dnf install gnome-tweaks gnome-system-monitor gnome-software htop rar libgtk2.0-0 libasound2 libdbus-glib-1 -y
+sudo dnf install @base-x gnome-shell gnome-terminal nautilus gnome-calculator gnome-tweaks gnome-system-monitor gnome-software @development-tools htop rar libgtk2.0-0 libasound2 libdbus-glib-1 -y
+sudo systemctl enable gdm
+sudo systemctl set-default graphical.target
+
+sudo dnf install gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer -y
 
 # Configura el fondo de pantalla
 gsettings set org.gnome.desktop.background picture-uri "file:///usr/share/backgrounds/warty-final-ubuntu.png"
@@ -84,6 +88,7 @@ sudo dnf install flatpak -y
 
 # Agrega el repositorio Flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak update
 
 # Instala aplicaciones a través de Flatpak
 flatpak_apps=(
@@ -155,6 +160,19 @@ Type=Application
 Categories=Development;
 EOL
 chmod +x "$app_dir/ResponsivelyApp.desktop"
+
+sudo dnf install fedora-workstation-repositories -y
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm -y
+sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm -y
+sudo dnf upgrade --refresh -y
+sudo dnf groupupdate core -y
+sudo dnf install rpmfusion-free-release-tainted -y
+sudo dnf install dnf-plugins-core -y
+
+# Install media codecs
+sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel -y
+sudo dnf install lame\* --exclude=lame-devel -y
+sudo dnf group upgrade --with-optional Multimedia -y
 
 # Limpia paquetes innecesarios
 sudo dnf autoremove -y
