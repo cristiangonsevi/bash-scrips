@@ -86,7 +86,7 @@ flatpak remote-modify --system flathub --auth=<system|user>
 
 # Agrega el repositorio Flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak update
+flatpak update 
 
 # Instala aplicaciones a través de Flatpak
 flatpak_apps=(
