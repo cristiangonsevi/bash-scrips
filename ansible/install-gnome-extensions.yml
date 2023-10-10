@@ -18,31 +18,25 @@
         state: directory
 
     - name: Descargar archivos ZIP desde las URLs y extraer extensiones
-      shell: |
-        for url in "{{ extension_urls }}"; do
-        # Download the zip file
-          URL_OF_YOUR_ZIP_FILE="$url"
-          ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
-          curl -o "$ZIP_FILE" "$URL_OF_YOUR_ZIP_FILE"
-
-          # Extract the value of uuid from the metadata.json file
-          UUID=$(unzip -p "$ZIP_FILE" metadata.json | jq -r .uuid)
-
-          # Display the value of uuid
-          echo ":::::::::::::::"
-          echo "URL $url $URL_OF_YOUR_ZIP_FILE"
-          echo "zip $ZIP_FILE"
-          echo "UUID: $UUID"
-          echo ":::::::::::::::"
-
-          # Optional: Create a folder with the uuid name and move the zip file there
-          if [ ! -z "$UUID" ]; then
+      hosts: localhost  # Replace with your target hosts
+      tasks:
+        - name: Loop through extension_urls and download files
+          shell: |
+            URL_OF_YOUR_ZIP_FILE="{{ item }}"
+            ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
+            curl -o "$ZIP_FILE" "$URL_OF_YOUR_ZIP_FILE"
+            UUID=$(unzip -p "$ZIP_FILE" metadata.json | jq -r .uuid)
+            echo ":::::::::::::::"
+            echo "URL $URL_OF_YOUR_ZIP_FILE"
+            echo "zip $ZIP_FILE"
+            echo "UUID: $UUID"
+            echo ":::::::::::::::"
+            if [ ! -z "$UUID" ]; then
               mkdir -p "$UUID"
               mv "$ZIP_FILE" "$UUID"
-          fi
-
-        done
-      register: download_result
+            fi
+          loop: "{{ extension_urls }}"
+          register: download_result
 
     - name: Reiniciar Gnome Shell para activar las extensiones
       command: echo "Reiniciar gnome"
