@@ -9,7 +9,7 @@
         state: present
 
     - name: Instalar las extensiones de GNOME Shell
-      shell: gnome-extensions install --force {{ item }}
+      ansible.builtin.shell: gnome-extensions install --force {{ item }}
       loop:
         - dash-to-panel@jderose9.github.com
         - arc-menu@arcmenu.com
@@ -30,7 +30,7 @@
         - tray-icons@hliu.org
 
     - name: Habilitar las extensiones instaladas
-      shell: gnome-extensions enable {{ item }}
+      ansible.builtin.shell: gnome-extensions enable {{ item }}
       loop:
         - dash-to-panel@jderose9.github.com
         - arc-menu@arcmenu.com
