@@ -5,7 +5,10 @@
   tasks:
     - name: Instalar paquetes necesarios para extensiones GNOME
       dnf:
-        name: gnome-shell-extension-prefs gnome-tweaks chrome-gnome-shell
+        name: 
+          - gnome-shell-extension-prefs 
+          - gnome-tweaks 
+          - chrome-gnome-shell
         state: present
 
     - name: Instalar las extensiones de GNOME Shell
