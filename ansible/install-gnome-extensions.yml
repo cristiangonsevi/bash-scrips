@@ -10,9 +10,7 @@
         state: present
 
     - name: Instalar las extensiones de GNOME Shell
-      # ansible.builtin.debug: gnome-extensions install --force {{ item }}
-      ansible.builtin.debug: 
-        msg: echo {{item}}
+      ansible.builtin.debug: gnome-extensions install --force {{ item }}
       loop:
         - dash-to-panel@jderose9.github.com
         - arc-menu@arcmenu.com
