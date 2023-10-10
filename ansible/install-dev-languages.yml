@@ -1,0 +1,53 @@
+---
+- name: Instalar y configurar NVM, Python, Golang y Docker
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Instalar paquetes necesarios
+      dnf:
+        name:
+          - git
+          - curl
+          - wget
+        state: present
+
+    - name: Instalar NVM (Node Version Manager)
+      become_user: root
+      shell: |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+      args:
+        executable: /bin/bash
+
+    - name: Cargar NVM en el perfil de usuario
+      become_user: root
+      lineinfile:
+        dest: ~/.bashrc
+        line: '[[ -s $HOME/.nvm/nvm.sh ]] && source $HOME/.nvm/nvm.sh'
+        insertafter: EOF
+
+    - name: Instalar la versión de Node.js deseada
+      become_user: root
+      shell: |
+        source ~/.nvm/nvm.sh
+        nvm install 14
+        nvm use 14
+      args:
+        executable: /bin/bash
+
+    - name: Instalar Python
+      dnf:
+        name: python3
+        state: present
+
+    - name: Comprobar si Go ya está instalado
+      shell: command -v go &>/dev/null
+      register: go_installed
+      ignore_errors: yes
+
+    - name: Descargar e instalar Go si no está instalado
+      command: |
+        curl -OL https://go.dev/dl/go1.21.1.linux-amd64.tar.gz
+        sudo tar -C /usr/local -xvf go1.21.1.linux-amd64.tar.gz
+        echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a ~/.profile >/dev/null
+        source ~/.profile
+      when: go_installed.rc != 0

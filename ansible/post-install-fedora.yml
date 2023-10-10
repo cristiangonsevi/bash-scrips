@@ -1,27 +1,6 @@
-- name: 'Configuring fedora minimal'
+- name: Post install fedora configure
   hosts: localhost
   become: yes
-
   tasks:
     - name: Update system
-      become: yes
-      command: sudo dnf update -y
-    - name: Enable touchpad tap-to-click
-      community.general.dconf:
-        key: /org/gnome/desktop/peripherals/touchpad/tap-to-click
-        value: 'true'
-
-    - name: Disable event sounds
-      community.general.dconf:
-        key: /org/gnome/desktop/sound/event-sounds
-        value: 'false'
-
-    - name: Setup text editor
-      community.general.dconf:
-        key: /org/gnome/TextEditor/indent-style
-        value: "'space'"
-    - name: Install Htop
-      become: yes
-      package:
-        name: htop
-        state: present
+      include: update-system.yml

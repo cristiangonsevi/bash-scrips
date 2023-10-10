@@ -1,0 +1,51 @@
+---
+- name: Instalar extensiones de GNOME Shell en Fedora
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Instalar paquetes necesarios para extensiones GNOME
+      dnf:
+        name: gnome-shell-extension-prefs gnome-tweaks chrome-gnome-shell
+        state: present
+
+    - name: Instalar las extensiones de GNOME Shell
+      shell: gnome-extensions install --force {{ item }}
+      with_items:
+        - dash-to-panel@jderose9.github.com
+        - arc-menu@arcmenu.com
+        - netspeed@hedayaty.gmail.com
+        - workspace-indicator@gnome-shell-extensions.gcampax.github.com
+        - wintile@nowsci.com
+        - gnome-shell-extension-vitals@eunhak.lee@gmail.com
+        - clipboard-indicator@tudmotu.com
+        - user-themes@gnome-shell-extensions.gcampax.github.com
+        - bluetooth-quick-connect@bjarosze.gmail.com
+        - just-perfection@gns.gnomewebapps.com
+        - services-systemd@github.com
+        - sound-output-device-chooser@kgshank.net
+        - sound-input-device-chooser@kgshank.net
+        - gsconnect@andyholmes.github.io
+        - mediaplayer@patapon.info
+        - apps-menu@gnome-shell-extensions.gcampax.github.com
+        - tray-icons@hliu.org
+
+    - name: Habilitar las extensiones instaladas
+      shell: gnome-extensions enable {{ item }}
+      with_items:
+        - dash-to-panel@jderose9.github.com
+        - arc-menu@arcmenu.com
+        - netspeed@hedayaty.gmail.com
+        - workspace-indicator@gnome-shell-extensions.gcampax.github.com
+        - wintile@nowsci.com
+        - gnome-shell-extension-vitals@eunhak.lee@gmail.com
+        - clipboard-indicator@tudmotu.com
+        - user-themes@gnome-shell-extensions.gcampax.github.com
+        - bluetooth-quick-connect@bjarosze.gmail.com
+        - just-perfection@gns.gnomewebapps.com
+        - services-systemd@github.com
+        - sound-output-device-chooser@kgshank.net
+        - sound-input-device-chooser@kgshank.net
+        - gsconnect@andyholmes.github.io
+        - mediaplayer@patapon.info
+        - apps-menu@gnome-shell-extensions.gcampax.github.com
+        - tray-icons@hliu.org

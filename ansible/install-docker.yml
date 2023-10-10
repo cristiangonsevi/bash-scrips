@@ -1,0 +1,34 @@
+---
+- name: Instalar Docker en Fedora
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Instalar dnf-plugins-core
+      dnf:
+        name: dnf-plugins-core
+        state: present
+
+    - name: Agregar el repositorio de Docker
+      command: sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+    - name: Instalar Docker
+      dnf:
+        name: docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        state: present
+
+    - name: Iniciar el servicio Docker
+      systemd:
+        name: docker
+        state: started
+
+    - name: Crear el grupo "docker"
+      command: sudo groupadd docker
+      ignore_errors: yes
+
+    - name: Agregar el usuario actual al grupo "docker"
+      command: sudo usermod -aG docker $USER
+
+    - name: Reiniciar la sesión para aplicar los cambios de grupo
+      command: newgrp docker
+      async: 0
+      poll: 0
