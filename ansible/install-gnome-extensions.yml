@@ -43,12 +43,12 @@
           command: sudo systemctl restart gdm
           async: 0
           poll: 0
-      when: unzip_result.changed
+      when: unzip_result is defined and unzip_result.changed
 
     - name: Mostrar mensaje de éxito
       debug:
         msg: 'Las extensiones de Gnome Shell se han instalado y activado correctamente.'
-      when: unzip_result.changed
+      when: unzip_result is defined and unzip_result.changed
 # ---
 # - name: Instalar extensiones de GNOME Shell en Fedora
 #   hosts: localhost
