@@ -3,5 +3,5 @@
   become: yes
   tasks:
     - name: Update system
-      become: yes
-      include: update-system.yml
+      ansible.builtin.include_tasks:
+        file: update-system.yml
