@@ -3,4 +3,8 @@
   become: yes
   tasks:
     - name: Update system module
-      include_playbook: update-system.yml
+      become: yes
+      command: echo "========= INIT ========"
+
+  - name: Include a update system playbook
+    ansible.builtin.import_playbook: update-system.yml
