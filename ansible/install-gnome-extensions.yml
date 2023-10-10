@@ -33,7 +33,7 @@
         if [ ! -z "$UUID" ]; then
           mkdir -p "$TARGET_DIR"
           mkdir -p "$UUID"
-          ls "$TARGET_DIR"
+          ls $TARGET_DIR
           mv "$ZIP_FILE" "$UUID"
           mv "$UUID" "$TARGET_DIR/$UUID"
         fi
