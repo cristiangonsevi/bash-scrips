@@ -7,7 +7,7 @@
       dnf:
         name: '@base-x'
         state: present
-    - name: Instalar escritorio de GNOME (mínimo)
+    - name: Instalar gnome shell
       dnf:
         name: 'gnome-shell'
         state: present

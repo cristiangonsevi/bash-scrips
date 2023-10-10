@@ -11,3 +11,6 @@
 
 - name: Install gnome and other applications
   ansible.builtin.import_playbook: configure-gnome.yml
+
+- name: Install gnome extensions
+  ansible.builtin.import_playbook: install-gnome-extensions.yml
