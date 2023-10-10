@@ -1,52 +1,101 @@
 ---
-- name: Instalar extensiones de GNOME Shell en Fedora
+- name: Descargar y instalar extensiones de Gnome Shell desde URLs
   hosts: localhost
   become: yes
+  vars:
+    extension_urls:
+      - 'URL1'
+      - 'URL2'
+      - 'URL3'
+
   tasks:
-    - name: Instalar paquetes necesarios para extensiones GNOME
+    - name: Instalar jq si no está instalado
       dnf:
-        name: 
-          - gnome-tweaks 
+        name: jq
         state: present
+      when: not ansible_facts['packages']['jq']
 
-    - name: Instalar las extensiones de GNOME Shell
-      ansible.builtin.debug: gnome-extensions install --force {{ item }}
-      loop:
-        - dash-to-panel@jderose9.github.com
-        - arc-menu@arcmenu.com
-        - netspeed@hedayaty.gmail.com
-        - workspace-indicator@gnome-shell-extensions.gcampax.github.com
-        - wintile@nowsci.com
-        - gnome-shell-extension-vitals@eunhak.lee@gmail.com
-        - clipboard-indicator@tudmotu.com
-        - user-themes@gnome-shell-extensions.gcampax.github.com
-        - bluetooth-quick-connect@bjarosze.gmail.com
-        - just-perfection@gns.gnomewebapps.com
-        - services-systemd@github.com
-        - sound-output-device-chooser@kgshank.net
-        - sound-input-device-chooser@kgshank.net
-        - gsconnect@andyholmes.github.io
-        - mediaplayer@patapon.info
-        - apps-menu@gnome-shell-extensions.gcampax.github.com
-        - tray-icons@hliu.org
+    - name: Crear directorio para las extensiones de Gnome Shell
+      file:
+        path: ~/.local/share/gnome-shell/extensions/
+        state: directory
 
-    # - name: Habilitar las extensiones instaladas
-    #   ansible.builtin.shell: gnome-extensions enable {{ item }}
-    #   loop:
-    #     - dash-to-panel@jderose9.github.com
-    #     - arc-menu@arcmenu.com
-    #     - netspeed@hedayaty.gmail.com
-    #     - workspace-indicator@gnome-shell-extensions.gcampax.github.com
-    #     - wintile@nowsci.com
-    #     - gnome-shell-extension-vitals@eunhak.lee@gmail.com
-    #     - clipboard-indicator@tudmotu.com
-    #     - user-themes@gnome-shell-extensions.gcampax.github.com
-    #     - bluetooth-quick-connect@bjarosze.gmail.com
-    #     - just-perfection@gns.gnomewebapps.com
-    #     - services-systemd@github.com
-    #     - sound-output-device-chooser@kgshank.net
-    #     - sound-input-device-chooser@kgshank.net
-    #     - gsconnect@andyholmes.github.io
-    #     - mediaplayer@patapon.info
-    #     - apps-menu@gnome-shell-extensions.gcampax.github.com
-    #     - tray-icons@hliu.org
+    - name: Descargar archivos ZIP desde las URLs
+      get_url:
+        url: "{{ item }}"
+        dest: "/tmp/{{ item | basename }}"
+      loop: "{{ extension_urls }}"
+
+    - name: Instalar extensiones de Gnome Shell desde archivos ZIP
+      command: >
+        unzip -q -o "/tmp/{{ item | basename }}" -d "~/.local/share/gnome-shell/extensions/{{ item | basename | regex_replace('https?://', '') | regex_replace('/', '_') }}"
+      loop: "{{ extension_urls }}"
+      register: unzip_result
+
+    - name: Reiniciar Gnome Shell para activar las extensiones
+      command: dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'Meta.restart("Restarting…");'
+      async: 0
+      poll: 0
+
+    - name: Comprobar que las extensiones se han instalado
+      command: ls -A1 ~/.local/share/gnome-shell/extensions/
+      register: installed_extensions
+
+    - name: Mostrar mensaje de éxito
+      debug:
+        msg: "Las extensiones de Gnome Shell se han instalado en ~/.local/share/gnome-shell/extensions/"
+      when: unzip_result is succeeded and installed_extensions.stdout_lines | length > 0
+
+
+# ---
+# - name: Instalar extensiones de GNOME Shell en Fedora
+#   hosts: localhost
+#   become: yes
+#   tasks:
+#     - name: Instalar paquetes necesarios para extensiones GNOME
+#       dnf:
+#         name: 
+#           - gnome-tweaks 
+#         state: present
+
+#     - name: Instalar las extensiones de GNOME Shell
+#       ansible.builtin.debug: gnome-extensions install --force {{ item }}
+#       loop:
+#         - dash-to-panel@jderose9.github.com
+#         - arc-menu@arcmenu.com
+#         - netspeed@hedayaty.gmail.com
+#         - workspace-indicator@gnome-shell-extensions.gcampax.github.com
+#         - wintile@nowsci.com
+#         - gnome-shell-extension-vitals@eunhak.lee@gmail.com
+#         - clipboard-indicator@tudmotu.com
+#         - user-themes@gnome-shell-extensions.gcampax.github.com
+#         - bluetooth-quick-connect@bjarosze.gmail.com
+#         - just-perfection@gns.gnomewebapps.com
+#         - services-systemd@github.com
+#         - sound-output-device-chooser@kgshank.net
+#         - sound-input-device-chooser@kgshank.net
+#         - gsconnect@andyholmes.github.io
+#         - mediaplayer@patapon.info
+#         - apps-menu@gnome-shell-extensions.gcampax.github.com
+#         - tray-icons@hliu.org
+
+#     # - name: Habilitar las extensiones instaladas
+#     #   ansible.builtin.shell: gnome-extensions enable {{ item }}
+#     #   loop:
+#     #     - dash-to-panel@jderose9.github.com
+#     #     - arc-menu@arcmenu.com
+#     #     - netspeed@hedayaty.gmail.com
+#     #     - workspace-indicator@gnome-shell-extensions.gcampax.github.com
+#     #     - wintile@nowsci.com
+#     #     - gnome-shell-extension-vitals@eunhak.lee@gmail.com
+#     #     - clipboard-indicator@tudmotu.com
+#     #     - user-themes@gnome-shell-extensions.gcampax.github.com
+#     #     - bluetooth-quick-connect@bjarosze.gmail.com
+#     #     - just-perfection@gns.gnomewebapps.com
+#     #     - services-systemd@github.com
+#     #     - sound-output-device-chooser@kgshank.net
+#     #     - sound-input-device-chooser@kgshank.net
+#     #     - gsconnect@andyholmes.github.io
+#     #     - mediaplayer@patapon.info
+#     #     - apps-menu@gnome-shell-extensions.gcampax.github.com
+#     #     - tray-icons@hliu.org
