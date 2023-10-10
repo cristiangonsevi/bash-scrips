@@ -28,12 +28,13 @@
         echo "URL $URL_OF_YOUR_ZIP_FILE"
         echo "zip $ZIP_FILE"
         echo "UUID: $UUID"
+        echo "TARGET FOLDER $TARGET_DIR"
         echo ":::::::::::::::"
         if [ ! -z "$UUID" ]; then
           mkdir -p "$TARGET_DIR"
           mkdir -p "$UUID"
           mv "$ZIP_FILE" "$UUID"
-          mv "$UUID" "$TARGET_DIR"
+          mv "$UUID" "$TARGET_DIR/$UUID"
         fi
       loop: '{{ extension_urls }}'
       register: download_result
