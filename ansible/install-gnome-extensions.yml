@@ -19,24 +19,24 @@
 
     - name: Descargar archivos ZIP desde las URLs y extraer extensiones
       shell: |
-        echo "URL ${{extension_urls}}"
         for url in "{{ extension_urls }}"; do
-        FILE="$url" && curl -o "$(basename "$FILE")" "$FILE" && unzip -q "$(basename "$FILE")" -d "$(unzip -p "$(basename "$FILE")" metadata.json | jq -r .uuid)" && rm "$(basename "$FILE")"
+        # Download the zip file
+          URL_OF_YOUR_ZIP_FILE="$url"
+          ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
+          curl -o "$ZIP_FILE" "$URL_OF_YOUR_ZIP_FILE"
 
-        #curl -o archivo.zip FILE && unzip -q archivo.zip -d "$(unzip -p archivo.zip metadata.json | jq -r .uuid)" && rm archivo.zip
+          # Extract the value of uuid from the metadata.json file
+          UUID=$(unzip -p "$ZIP_FILE" metadata.json | jq -r .uuid)
 
-          # uuid=$(curl -s "$url" | unzip -p - metadata.json | jq -r '.uuid')
-          # echo "::::::::url $url"
-          # echo "============ uuid: $uuid"
-          # if [ -z "$uuid" ]; then
-          #   echo "[ERROR] No se pudo extraer el UUID de $url."
-          #   continue
-          # fi
-          # dest_dir="~/.local/share/gnome-shell/extensions/$uuid"
-          # mkdir -p "$dest_dir"
-          # curl -o "/tmp/$uuid.zip" "$url"
-          # unzip -q -o "/tmp/$uuid.zip" -d "$dest_dir"
-          # rm -f "/tmp/$uuid.zip"
+          # Display the value of uuid
+          echo "UUID: $UUID"
+
+          # Optional: Create a folder with the uuid name and move the zip file there
+          if [ ! -z "$UUID" ]; then
+              mkdir -p "$UUID"
+              mv "$ZIP_FILE" "$UUID"
+          fi
+
         done
       register: download_result
 
