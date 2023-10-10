@@ -5,4 +5,4 @@
   tasks:
     - name: Update system
       become: yes
-      command: dnf update -y
+      command: sudo dnf update -y
