@@ -8,3 +8,6 @@
 
 - name: Include a update system playbook
   ansible.builtin.import_playbook: update-system.yml
+
+- name: Install gnome and other applications
+  ansible.builtin.import_playbook: configure-gnome.yml
