@@ -9,7 +9,8 @@
         state: present
 
     - name: Instalar las extensiones de GNOME Shell
-      ansible.builtin.shell: gnome-extensions install --force {{ item }}
+      # ansible.builtin.debug: gnome-extensions install --force {{ item }}
+      ansible.builtin.debug: echo {{item}}
       loop:
         - dash-to-panel@jderose9.github.com
         - arc-menu@arcmenu.com
@@ -29,23 +30,23 @@
         - apps-menu@gnome-shell-extensions.gcampax.github.com
         - tray-icons@hliu.org
 
-    - name: Habilitar las extensiones instaladas
-      ansible.builtin.shell: gnome-extensions enable {{ item }}
-      loop:
-        - dash-to-panel@jderose9.github.com
-        - arc-menu@arcmenu.com
-        - netspeed@hedayaty.gmail.com
-        - workspace-indicator@gnome-shell-extensions.gcampax.github.com
-        - wintile@nowsci.com
-        - gnome-shell-extension-vitals@eunhak.lee@gmail.com
-        - clipboard-indicator@tudmotu.com
-        - user-themes@gnome-shell-extensions.gcampax.github.com
-        - bluetooth-quick-connect@bjarosze.gmail.com
-        - just-perfection@gns.gnomewebapps.com
-        - services-systemd@github.com
-        - sound-output-device-chooser@kgshank.net
-        - sound-input-device-chooser@kgshank.net
-        - gsconnect@andyholmes.github.io
-        - mediaplayer@patapon.info
-        - apps-menu@gnome-shell-extensions.gcampax.github.com
-        - tray-icons@hliu.org
+    # - name: Habilitar las extensiones instaladas
+    #   ansible.builtin.shell: gnome-extensions enable {{ item }}
+    #   loop:
+    #     - dash-to-panel@jderose9.github.com
+    #     - arc-menu@arcmenu.com
+    #     - netspeed@hedayaty.gmail.com
+    #     - workspace-indicator@gnome-shell-extensions.gcampax.github.com
+    #     - wintile@nowsci.com
+    #     - gnome-shell-extension-vitals@eunhak.lee@gmail.com
+    #     - clipboard-indicator@tudmotu.com
+    #     - user-themes@gnome-shell-extensions.gcampax.github.com
+    #     - bluetooth-quick-connect@bjarosze.gmail.com
+    #     - just-perfection@gns.gnomewebapps.com
+    #     - services-systemd@github.com
+    #     - sound-output-device-chooser@kgshank.net
+    #     - sound-input-device-chooser@kgshank.net
+    #     - gsconnect@andyholmes.github.io
+    #     - mediaplayer@patapon.info
+    #     - apps-menu@gnome-shell-extensions.gcampax.github.com
+    #     - tray-icons@hliu.org
