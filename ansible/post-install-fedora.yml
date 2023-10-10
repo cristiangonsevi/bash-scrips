@@ -2,4 +2,5 @@
   hosts: localhost
   become: yes
   tasks:
-    - include_tasks: update-system.yml
+    - name: Update system module
+      include_playbook: update-system.yml
