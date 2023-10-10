@@ -1,5 +1,5 @@
 ---
-- name: Descargar y instalar extensiones de Gnome Shell desde URLs
+- name: Instalar extensiones de Gnome Shell desde archivos ZIP
   hosts: localhost
   become: yes
   vars:
@@ -7,10 +7,16 @@
       - 'https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v56.shell-extension.zip'
 
   tasks:
+    - name: Verificar si jq está instalado
+      command: rpm -q jq
+      register: jq_installed
+      ignore_errors: yes
+
     - name: Instalar jq si no está instalado
       dnf:
         name: jq
         state: present
+      when: jq_installed.rc != 0
 
     - name: Crear directorio para las extensiones de Gnome Shell
       file:
@@ -19,31 +25,30 @@
 
     - name: Descargar archivos ZIP desde las URLs
       get_url:
-        url: "{{ item }}"
-        dest: "/tmp/{{ item | basename }}"
-      loop: "{{ extension_urls }}"
+        url: '{{ item }}'
+        dest: "/tmp/{{ item | regex_replace('https?://', '') | regex_replace('/', '_') }}"
+      loop: '{{ extension_urls }}'
 
-    - name: Instalar extensiones de Gnome Shell desde archivos ZIP
-      command: >
-        unzip -q -o "/tmp/{{ item | basename }}" -d "~/.local/share/gnome-shell/extensions/{{ item | basename | regex_replace('https?://', '') | regex_replace('/', '_') }}"
-      loop: "{{ extension_urls }}"
-      register: unzip_result
+    - name: Extraer y activar extensiones de Gnome Shell desde archivos ZIP
+      block:
+        - name: Iterar sobre archivos ZIP
+          unarchive:
+            src: "/tmp/{{ item | regex_replace('https?://', '') | regex_replace('/', '_') }}"
+            dest: '~/.local/share/gnome-shell/extensions/'
+            remote_src: yes
+          loop: '{{ extension_urls }}'
+          register: unzip_result
 
-    - name: Reiniciar Gnome Shell para activar las extensiones
-      command: 'sudo systemctl restart gdm'
-      async: 0
-      poll: 0
-
-    - name: Comprobar que las extensiones se han instalado
-      command: ls -A1 ~/.local/share/gnome-shell/extensions/
-      register: installed_extensions
+        - name: Reiniciar Gnome Shell para activar las extensiones
+          command: sudo systemctl restart gdm
+          async: 0
+          poll: 0
+      when: unzip_result | changed
 
     - name: Mostrar mensaje de éxito
       debug:
-        msg: "Las extensiones de Gnome Shell se han instalado en ~/.local/share/gnome-shell/extensions/"
-      when: unzip_result is succeeded and installed_extensions.stdout_lines | length > 0
-
-
+        msg: 'Las extensiones de Gnome Shell se han instalado y activado correctamente.'
+      when: unzip_result | changed
 # ---
 # - name: Instalar extensiones de GNOME Shell en Fedora
 #   hosts: localhost
@@ -51,8 +56,8 @@
 #   tasks:
 #     - name: Instalar paquetes necesarios para extensiones GNOME
 #       dnf:
-#         name: 
-#           - gnome-tweaks 
+#         name:
+#           - gnome-tweaks
 #         state: present
 
 #     - name: Instalar las extensiones de GNOME Shell
