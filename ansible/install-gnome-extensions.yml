@@ -29,7 +29,9 @@
           UUID=$(unzip -p "$ZIP_FILE" metadata.json | jq -r .uuid)
 
           # Display the value of uuid
+          echo ":::::::::::::::"
           echo "UUID: $UUID"
+          echo ":::::::::::::::"
 
           # Optional: Create a folder with the uuid name and move the zip file there
           if [ ! -z "$UUID" ]; then
