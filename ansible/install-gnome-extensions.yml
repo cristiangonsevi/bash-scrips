@@ -22,6 +22,7 @@
         echo "URL $extension_urls"
         for url in "{{ extension_urls }}"; do
           uuid=$(curl -s "$url" | unzip -p - metadata.json | jq -r '.uuid')
+          echo "::::::::url $url"
           echo "============ uuid: $uuid"
           if [ -z "$uuid" ]; then
             echo "[ERROR] No se pudo extraer el UUID de $url."
