@@ -4,9 +4,7 @@
   become: yes
   vars:
     extension_urls:
-      - 'URL1'
-      - 'URL2'
-      - 'URL3'
+      - 'https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v56.shell-extension.zip'
 
   tasks:
     - name: Instalar jq si no está instalado
