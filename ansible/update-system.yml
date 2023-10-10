@@ -1,7 +1,7 @@
----
 - name: Update system
   hosts: localhost
   become: yes
   tasks:
     - name: updating system
+      become: yes
       command: sudo dnf update -y
