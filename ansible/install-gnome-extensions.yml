@@ -7,7 +7,6 @@
       dnf:
         name: 
           - gnome-tweaks 
-          - chrome-gnome-shell
         state: present
 
     - name: Instalar las extensiones de GNOME Shell
