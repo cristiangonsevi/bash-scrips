@@ -30,6 +30,8 @@
 
           # Display the value of uuid
           echo ":::::::::::::::"
+          echo "URL $url $URL_OF_YOUR_ZIP_FILE"
+          echo "zip $ZIP_FILE"
           echo "UUID: $UUID"
           echo ":::::::::::::::"
 
