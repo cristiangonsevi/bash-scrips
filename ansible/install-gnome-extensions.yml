@@ -10,7 +10,7 @@
 
     - name: Instalar las extensiones de GNOME Shell
       shell: gnome-extensions install --force {{ item }}
-      with_items:
+      loop:
         - dash-to-panel@jderose9.github.com
         - arc-menu@arcmenu.com
         - netspeed@hedayaty.gmail.com
@@ -31,7 +31,7 @@
 
     - name: Habilitar las extensiones instaladas
       shell: gnome-extensions enable {{ item }}
-      with_items:
+      loop:
         - dash-to-panel@jderose9.github.com
         - arc-menu@arcmenu.com
         - netspeed@hedayaty.gmail.com
