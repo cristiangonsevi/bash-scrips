@@ -5,7 +5,11 @@
   tasks:
     - name: Instalar escritorio de GNOME (mínimo)
       dnf:
-        name: @gnome-desktop-minimal
+        name: '@base-x'
+        state: present
+    - name: Instalar escritorio de GNOME (mínimo)
+      dnf:
+        name: 'gnome-shell'
         state: present
 
     - name: Instalar GNOME Terminal
