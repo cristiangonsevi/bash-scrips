@@ -20,7 +20,7 @@
     - name: Descargar archivos ZIP desde las URLs y extraer extensiones
       shell: |
         echo "URL $extension_urls"
-        for url in "{{ extension_urls }}"; do
+        for url in "${ extension_urls }"; do
           uuid=$(curl -s "$url" | unzip -p - metadata.json | jq -r '.uuid')
           echo "::::::::url $url"
           echo "============ uuid: $uuid"
