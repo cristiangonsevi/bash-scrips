@@ -2,6 +2,4 @@
   hosts: localhost
   become: yes
   tasks:
-    - name: Update system module
-      ansible.builtin.include_tasks:
-        file: update-system.yml
+    - include_tasks: update-system.yml
