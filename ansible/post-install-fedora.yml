@@ -6,5 +6,5 @@
       become: yes
       command: echo "========= INIT ========"
 
-  - name: Include a update system playbook
-    ansible.builtin.import_playbook: update-system.yml
+- name: Include a update system playbook
+  ansible.builtin.import_playbook: update-system.yml
