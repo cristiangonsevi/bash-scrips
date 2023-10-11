@@ -57,8 +57,10 @@
 
     - name: Mostrar mensaje de éxito
       debug:
-        msg: 'Las extensiones de Gnome Shell se han instalado en ~/.local/share/gnome-shell/extensions/'
-      when: download_result.rc == 0 and installed_extensions.stdout_lines | length > 0
+        msg:
+          - 'Las extensiones de Gnome Shell se han instalado en ~/.local/share/gnome-shell/extensions/'
+          - '{{download_result}}'
+          - '{{installed_extensions}}'
 # ---
 # - name: Instalar extensiones de GNOME Shell en Fedora
 #   hosts: localhost
