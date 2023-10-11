@@ -19,7 +19,7 @@
 
     - name: Loop through extension_urls and download files
       shell: |
-        TARGET_DIR="/home/$USER/.local/share/gnome-shell/extensions"
+        TARGET_DIR="{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions"
         URL_OF_YOUR_ZIP_FILE="{{ item }}"
         ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
 
