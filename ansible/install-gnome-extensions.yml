@@ -72,7 +72,7 @@
 
     - name: Comprobar que las extensiones se han instalado
       become: no
-      become_user: {{ user }}
+      become_user: "{{ user }}"
       command: ls -A1 ~/.local/share/gnome-shell/extensions/
       register: installed_extensions
 
