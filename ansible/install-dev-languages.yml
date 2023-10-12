@@ -42,29 +42,21 @@
         name: python3
         state: present
 
-    - name: Check if Go is installed
-      command:   go -v
-      register: go_installed
-
     - name: Download Go if it is not installed
-      when: go_installed.rc == 1
       uri:
         url: https://go.dev/dl/go1.21.1.linux-amd64.tar.gz
         dest: /tmp/go1.21.1.linux-amd64.tar.gz
 
     - name: Extract Go
-      when: go_installed.rc == 1
       unarchive:
         src: /tmp/go1.21.1.linux-amd64.tar.gz
         dest: /usr/local
 
     - name: Add Go to PATH
-      when: go_installed.rc == 1
       lineinfile:
-        path: /home/cg/.profile
+        path: ~/.profile
         line: 'export PATH=$PATH:/usr/local/go/bin'
         state: present
 
     - name: Reload .profile
-      when: go_installed.rc == 1
       command: source '/home/cg/.profile'

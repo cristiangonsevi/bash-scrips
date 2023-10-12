@@ -6,3 +6,4 @@ if ! command -v go &>/dev/null; then
     echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a ~/.profile >/dev/null
     source ~/.profile
 fi
+    
