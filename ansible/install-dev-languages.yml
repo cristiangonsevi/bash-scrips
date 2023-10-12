@@ -43,4 +43,4 @@
         state: present
 
 - name: Install golang
-  ansible.builtin.import_playbook: install-golagn.yml
+  ansible.builtin.import_playbook: install-golang.yml
