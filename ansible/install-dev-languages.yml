@@ -25,7 +25,7 @@
       become_user: root
       lineinfile:
         dest: '/home/cg/.bashrc'
-        line: '[[ -s /home/cg/.nvm/nvm.sh ]] && source /home/cg/.nvm/nvm.sh
+        line: '[[ -s /home/cg/.nvm/nvm.sh ]] && source /home/cg/.nvm/nvm.sh'
         insertafter: EOF
 
     - name: Instalar la versión de Node.js deseada
@@ -61,7 +61,7 @@
     - name: Add Go to PATH
       when: go_installed.rc == 1
       lineinfile:
-        path: '/home/cg/.profile'
+        path: /home/cg/.profile
         line: 'export PATH=$PATH:/usr/local/go/bin'
         state: present
 
