@@ -26,10 +26,11 @@
         create: true
         state: present
 
-    - name: Source updated profile
-      shell: source "{{ home }}/.profile"
-      args:
-        executable: /bin/bash
+    - name: Add source command to ~/.profile
+      lineinfile:
+        path: ~/.profile
+        line: 'source ~/.profile'
+        insertafter: 'export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin'
 
     - name: Test go version
       command: go version
