@@ -2,14 +2,8 @@
   hosts: localhost
   become: yes
   tasks:
-    - name: Set current time frm internet
-      uri:
-        url: https://www.google.com
-        method: HEAD
-        return_content: yes
-
     - name: Set system time
-      command: sudo date -s "{{ uri_result.content | from_json | json.get('Date') }}"
+      command: 'sudo date -s "$(wget --method=HEAD -qSO- --max-redirect=0 google.com 2>&1 | sed -n ''s/^ *Date: *//p'')"'
 
     - name: add rpm fusion
       shell: /
