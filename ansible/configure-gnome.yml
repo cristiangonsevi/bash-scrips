@@ -17,7 +17,6 @@
       - gnome-terminal-nautilus
       - xdg-user-dirs
       - xdg-user-dirs-gtk
-      - ffmpegthumbnailer
 
   tasks:
     - name: Install packages
