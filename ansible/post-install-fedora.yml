@@ -18,6 +18,9 @@
 - name: Change background
   ansible.builtin.import_playbook: change-background-gnome.yml
 
+- name: Install flatpak apps
+  ansible.builtin.import_playbook: install-flatpak-apps.yml
+
 - name: Install docker
   ansible.builtin.import_playbook: install-docker.yml
 
