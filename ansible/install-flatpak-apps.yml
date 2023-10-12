@@ -23,8 +23,7 @@
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
     - name: Update Flatpak
-      flatpak:
-        subcommand: update
+      shell: flatpak update --noninteractive
 
     - name: Install Flatpak applications
       flatpak:
