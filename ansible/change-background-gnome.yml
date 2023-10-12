@@ -6,8 +6,9 @@
     bg: bg1.jpg
   tasks:
     - name: Install python-psutil package
-      dnf: python-psutil
-      state: present
+      dnf: 
+        name: python-psutil
+        state: present
 
     - name: Copy wallpaper file
       copy: src='images/{{ bg }}' dest='/home/{{ user }}/.{{ bg }}' owner='{{ user }}' group='{{ user }}' mode=600
