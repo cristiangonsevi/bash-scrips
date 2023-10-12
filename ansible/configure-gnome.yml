@@ -5,7 +5,7 @@
   tasks:
     - name: Instalar escritorio de GNOME (mínimo)
       dnf:
-        name: '@base-x'
+        name: gdm
         state: present
     - name: Instalar gnome shell
       dnf:
