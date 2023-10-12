@@ -7,7 +7,7 @@
   tasks:
     - name: Install python-psutil package
       become: yes
-      dnf:
+      dnf: 
         name: python-psutil
         state: present
 
@@ -24,10 +24,9 @@
       dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/{{ user }}/.{{ bg }}'"
 
     - name: Copy dash to panel config
-      copy: src='config/dash-to-panel.config.txt' dest='/home/{{ user }}/.dash-to-panel.config.txt' owner={{ user }} group={{ user }} mode=600
+      copy: src='config/dash-to-panel.config.txt' dest='/home/{{ user }}/.dash-to-panel.config.txt' owner={{ user }} group={{ user }}
 
     - name: Set dash to panel config
-      dconf:
-        key: '/org/gnome/shell/extensions/dash-to-panel'
+      dconf: 
+        key: "/org/gnome/shell/extensions/dash-to-panel"
         value: "'file:///home/{{ user }}/.dash-to-panel.config.txt'"
-        state: present
