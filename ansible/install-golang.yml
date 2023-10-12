@@ -28,16 +28,9 @@
         state: present
 
     - name: Source updated profile
-      shell: /
-        source /home/cg/.profile
-        source '{{ home }}/.profile'
-        cat '{{ home }}/.profile'
-      register: source_golang
-
-    - name: debug source
-      debug:
-        msg:
-          - '{{ source_golang }}'
+      shell: source '{{ home }}/.profile'
+      args:
+        executable: /bin/bash
 
     - name: Test go version
       command: go version
