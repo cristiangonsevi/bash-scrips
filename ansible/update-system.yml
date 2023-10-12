@@ -10,6 +10,7 @@
       git:
         repo: https://github.com/AdnanHodzic/auto-cpufreq.git
         dest: /tmp/auto-cpufreq
+        clone: yes
 
     - name: Install auto-cpufreq
       command: sudo /tmp/auto-cpufreq/auto-cpufreq-installer
