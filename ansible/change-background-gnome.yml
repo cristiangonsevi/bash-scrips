@@ -42,4 +42,4 @@
     - name: run script
       shell: /
         cd '/home/{{user}}'
-        ./.set-config-dash-to-panel.sh
+        sh .set-config-dash-to-panel.sh
