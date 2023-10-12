@@ -14,3 +14,15 @@
 
 - name: Install gnome extensions
   ansible.builtin.import_playbook: install-gnome-extensions.yml
+  
+- name: Change background
+  ansible.builtin.import_playbook: change-background-gnome.yml
+
+- name: Install docker
+  ansible.builtin.import_playbook: install-docker.yml
+
+- name: Install python, node
+  ansible.builtin.import_playbook: install-dev-languages.yml
+
+- name: Install golang
+  ansible.builtin.import_playbook: install_golang.yml
