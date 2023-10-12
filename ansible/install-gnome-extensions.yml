@@ -23,6 +23,11 @@
         TARGET_DIR="{{ home_dir }}/.local/share/gnome-shell/extensions/"
         URL_OF_YOUR_ZIP_FILE="{{ item }}"
         ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
+        if [ -e "$ZIP_FILE" ]; then
+            rm "$ZIP_FILE"
+        fi
+       
+
 
         # Change to the target directory
         cd "$TARGET_DIR" || { echo "Failed to change directory"; exit 1; }
@@ -32,6 +37,10 @@
 
         # Extract the UUID from metadata.json
         UUID=$(unzip -p "$ZIP_FILE" metadata.json | jq -r .uuid)
+
+        if [ -d "$UUID" ]; then
+            rm -r "$UUID"
+        fi
 
         echo ":::::::::::::::"
         echo "URL $URL_OF_YOUR_ZIP_FILE"
