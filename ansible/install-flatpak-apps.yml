@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Install flatpak apps
+  hosts: localhost
   become: yes
   vars:
     flatpak_apps:
