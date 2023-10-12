@@ -6,6 +6,7 @@
     bg: bg1.jpg
   tasks:
     - name: Install python-psutil package
+      become: yes
       dnf: 
         name: python-psutil
         state: present
