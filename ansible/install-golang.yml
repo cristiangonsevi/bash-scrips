@@ -28,7 +28,7 @@
         state: present
 
     - name: Source updated profile
-      shell: source '{{ home }}/.profile'
+      shell: source /home/cg/.profile'
       args:
         executable: /bin/bash
 
