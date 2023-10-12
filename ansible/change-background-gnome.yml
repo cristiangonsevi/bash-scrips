@@ -31,10 +31,13 @@
         key: '/org/gnome/shell/extensions/dash-to-panel'
         value: "'file:///home/{{ user }}/.dash-to-panel.config.txt'"
 
-    - name: run script to set config dash to panel
+    - name: copy script to set config dash to panel
       copy:
         src: 'scripts/set-config-dash-to-panel.sh'
         dest: '/home/{{ user }}/.set-config-dash-to-panel.sh'
         owner: '{{ user }}'
         group: '{{ user }}'
         mode: u=rwx,g=r,o=r
+    
+    - name: run script
+      command: 'cd /home/{{user}} && ./.set-config-dash-to-panel.sh'
