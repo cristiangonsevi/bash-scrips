@@ -1,0 +1,38 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    flatpak_apps:
+      - com.visualstudio.code
+      - com.getpostman.Postman
+      - com.brave.Browser
+      - org.flameshot.Flameshot
+      - io.dbeaver.DBeaverCommunity
+
+  tasks:
+  - name: Install Flatpak
+    dnf:
+      name: flatpak
+      state: present
+
+  - name: Allow install without prompt password
+    flatpak_remote:
+      name: flathub
+      auth: <system|user>
+
+  - name: Add Flatpak repository
+    flatpak_remote:
+      name: flathub
+      url: https://flathub.org/repo/flathub.flatpakrepo
+      state: present
+
+  - name: Update Flatpak
+    flatpak:
+      subcommand: update
+
+  - name: Install Flatpak applications
+    flatpak:
+      name: "{{ item }}"
+      remote: flathub
+      state: present
+    loop: "{{ flatpak_apps }}"
