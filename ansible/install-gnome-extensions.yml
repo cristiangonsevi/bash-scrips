@@ -5,6 +5,7 @@
   vars:
     extension_urls:
       - 'https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v56.shell-extension.zip'
+    home_dir: /home/cg
 
   tasks:
     - name: Instalar jq si no está instalado
@@ -14,12 +15,12 @@
 
     - name: Crear directorio para las extensiones de Gnome Shell
       file:
-        path: ~/.local/share/gnome-shell/extensions/
+        path: "{{ home_dir }}/.local/share/gnome-shell/extensions/"
         state: directory
 
     - name: Loop through extension_urls and download files
       shell: |
-        TARGET_DIR="{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/"
+        TARGET_DIR="{{ home_dir }}/.local/share/gnome-shell/extensions/"
         URL_OF_YOUR_ZIP_FILE="{{ item }}"
         ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
 
