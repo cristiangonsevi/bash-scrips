@@ -45,7 +45,7 @@
           mkdir -p "$UUID"
           unzip "$ZIP_FILE" -d "$UUID"
           if [ -e "$ZIP_FILE" ]; then
-              rm "$ZIP_FILE"
+              #rm "$ZIP_FILE"
           fi
           gnome-extensions enable "$UUID"
           echo "ZIP FILE: $ZIP_FILE $UUID $TARGET_DIR"
