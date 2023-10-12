@@ -24,5 +24,3 @@
         groups:
           - docker
         append: yes
-    - name: Refresh Docker group membership
-      command: newgrp docker
