@@ -6,8 +6,11 @@
       shell: 'sudo date -s "$(wget --method=HEAD -qSO- --max-redirect=0 google.com 2>&1 | sed -n ''s/^ *Date: *//p'')"'
 
     - name: add rpm fusion
-      shell: /
-        sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+      dnf:
+        name:
+          - rpmfusion-free-release-{{ ansible_facts.distribution_version }}.noarch.rpm
+          - rpmfusion-nonfree-release-{{ ansible_facts.distribution_version }}.noarch.rpm
+        state: present
 
     - name: reimport gpg
       shell: curl https://fedoraproject.org/fedora.gpg | sudo gpg --import
