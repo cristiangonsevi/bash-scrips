@@ -27,4 +27,4 @@
       copy: src='config/dash-to-panel.config.txt' dest='/home/{{ user }}/.dash-to-panel.config.txt' owner={{ user }} group={{ user }} mode=600
 
     - name: Set dash to panel config
-      command: 'dconf load /org/gnome/shell/extensions/dash-to-panel/ < /home/{{ user }}/.dash-to-panel.config.txt'
+      command: 'dconf load /org/gnome/shell/extensions/dash-to-panel/ < /home/{{ user }}/.dash-to-panel.config.txt/'
