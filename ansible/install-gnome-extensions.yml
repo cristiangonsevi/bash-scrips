@@ -6,7 +6,6 @@
     extension_urls:
       - 'https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v56.shell-extension.zip'
       - 'https://extensions.gnome.org/extension-data/arcmenuarcmenu.com.v48.shell-extension.zip'
-      - 'https://extensions.gnome.org/extension-data/netspeedhedayaty.gmail.com.v34.shell-extension.zip'
       - 'https://extensions.gnome.org/extension-data/horizontal-workspace-indicatortty2.io.v19.shell-extension.zip'
       - 'https://extensions.gnome.org/extension-data/wintilenowsci.com.v15.shell-extension.zip'
       - 'https://extensions.gnome.org/extension-data/VitalsCoreCoding.com.v61.shell-extension.zip'
@@ -16,7 +15,6 @@
       - 'https://extensions.gnome.org/extension-data/just-perfection-desktopjust-perfection.v26.shell-extension.zip'
       - 'https://extensions.gnome.org/extension-data/battery-indicator-iconDeminder.v8.shell-extension.zip'
       - 'https://extensions.gnome.org/extension-data/espressocoadmunkee.github.com.v8.shell-extension.zip'
-      - 'https://extensions.gnome.org/extension-data/gsconnectandyholmes.github.io.v55.shell-extension.zip'
       - 'https://extensions.gnome.org/extension-data/mediacontrolscliffniff.github.com.v24.shell-extension.zip'
       - 'https://extensions.gnome.org/extension-data/trayIconsReloadedselfmade.pl.v27.shell-extension.zip'
     user: cg
