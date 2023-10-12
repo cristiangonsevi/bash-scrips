@@ -13,6 +13,5 @@
         clone: yes
 
     - name: Install auto-cpufreq
+      become: yes
       command: sudo /tmp/auto-cpufreq/auto-cpufreq-installer
-      args:
-        - install
