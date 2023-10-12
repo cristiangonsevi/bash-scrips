@@ -25,4 +25,4 @@
   ansible.builtin.import_playbook: install-dev-languages.yml
 
 - name: Install golang
-  ansible.builtin.import_playbook: install_golang.yml
+  ansible.builtin.import_playbook: install-golang.yml
