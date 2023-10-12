@@ -41,7 +41,6 @@
 
     - name: run script
       shell: /
-        cd '/home/{{user}}'
-        bash .set-config-dash-to-panel.sh
+        source '/home/{{user}}.set-config-dash-to-panel.sh'
       args:
         executable: /bin/bash
