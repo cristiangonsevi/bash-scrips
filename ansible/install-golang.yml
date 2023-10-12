@@ -29,5 +29,5 @@
     - name: Source updated profile
       shell: . ~/.profile
 
-- name: Test go version
-      command:  go version
+    - name: Test go version
+          command:  go version
