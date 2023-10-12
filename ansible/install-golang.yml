@@ -34,10 +34,10 @@
         cat '{{ home }}/.profile'
 
       regirter: source_golang
-    
+
     - name: debug source
       debug:
-        msg: "{{ source_golang.stout}}"
+        msg: '{{ source_golang.stout}}'
 
     - name: Test go version
       command: go version
