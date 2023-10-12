@@ -44,7 +44,8 @@
           rm -rf "$UUID"
           pwd
           if [ -e "$ZIP_FILE" ]; then
-              gnome-extensions install "$ZIP_FILE"
+              unzip "$ZIP_FILE" -d "$UUID"
+              #gnome-extensions install "$ZIP_FILE"
               gnome-extensions enable "$UUID"
               #rm "$ZIP_FILE"
           fi
