@@ -31,7 +31,7 @@
     - name: Instalar la versión de Node.js deseada
       become_user: root
       shell: |
-        source /home/cg/.nvm/nvm.sh
+        source ~/.nvm/nvm.sh
         nvm install 14
         nvm use 14
       args:
