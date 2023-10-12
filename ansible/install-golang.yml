@@ -30,4 +30,4 @@
       shell: . ~/.profile
 
     - name: Test go version
-          command:  go version
+      command:  go version
