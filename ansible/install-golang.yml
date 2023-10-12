@@ -25,11 +25,3 @@
         line: 'export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin'
         create: true
         state: present
-
-    - name: Source updated profile
-      command: 'source {{ home }}/.profile'
-      args:
-        executable: /bin/bash
-
-    - name: Test go version
-      command: go version
