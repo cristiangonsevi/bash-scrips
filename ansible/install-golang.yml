@@ -1,4 +1,3 @@
-# go-installation-playbook.yml
 ---
 - name: Play- golang installation
   hosts: localhost
@@ -28,7 +27,7 @@
         state: present
 
     - name: Source updated profile
-      shell: source /home/cg/.profile
+      shell: source "{{ home }}/.profile"
       args:
         executable: /bin/bash
 
