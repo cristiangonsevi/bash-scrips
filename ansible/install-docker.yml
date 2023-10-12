@@ -9,7 +9,8 @@
         state: present
 
     - name: Agregar el repositorio de Docker
-      command: sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+      shell: /
+        sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo 
 
     - name: Instalar Docker
       dnf:
