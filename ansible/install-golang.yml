@@ -29,7 +29,7 @@
     - name: Source updated profile
       shell: source '{{ home }}/.profile'
       args:
-        executable: /bin/bashadd
+        executable: /bin/bash
 
     - name: Test go version
       command: go version
