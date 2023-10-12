@@ -25,9 +25,7 @@
 
   tasks:
     - name: Install packages
-      dnf:
-        name: '{{ item }}'
-        state: present
+      shell: 'sudo dnf install {{ item }}'
       loop: '{{ packages }}'
 
     - name: Enable GDM
