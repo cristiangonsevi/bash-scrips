@@ -1,7 +1,7 @@
 # go-installation-playbook.yml
 ---
 - name: Play- golang installation
-  hosts: my_server
+  hosts: localhost
   vars:
      - version: 1.21.3
   tasks:
