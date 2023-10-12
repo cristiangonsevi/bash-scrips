@@ -29,5 +29,5 @@
     - name: Set dash to panel config
       dconf:
         key: '/org/gnome/shell/extensions/dash-to-panel'
-        value: 'file:///home/{{ user }}/.dash-to-panel.config.txt'
+        value: "'file:///home/{{ user }}/.dash-to-panel.config.txt'"
         state: present
