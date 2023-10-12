@@ -40,7 +40,6 @@
         mode: u=rwx,g=r,o=r
 
     - name: run script
-      shell: /
-        source '/home/{{user}}/.set-config-dash-to-panel.sh'
+      shell: source '/home/{{user}}/.set-config-dash-to-panel.sh'
       args:
         executable: /bin/bash
