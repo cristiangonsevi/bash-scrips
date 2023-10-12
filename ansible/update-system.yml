@@ -5,3 +5,13 @@
     - name: updating system
       become: yes
       command: sudo dnf update -y
+
+    - name: Clone auto-cpufreq repository
+      git:
+        repo: https://github.com/AdnanHodzic/auto-cpufreq.git
+        dest: /tmp/auto-cpufreq
+
+    - name: Install auto-cpufreq
+      command: sudo /tmp/auto-cpufreq/auto-cpufreq-installer
+      args:
+        - install
