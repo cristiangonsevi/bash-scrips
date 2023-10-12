@@ -26,3 +26,6 @@
       append: yes
   - name: Refresh Docker group membership
     command: newgrp docker
+
+- name: INstall golang
+  ansible.builtin.import_playbook: install-golagn.yml
