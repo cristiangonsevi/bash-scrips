@@ -11,29 +11,35 @@
       - io.dbeaver.DBeaverCommunity
 
   tasks:
-  - name: Install Flatpak
-    dnf:
-      name: flatpak
-      state: present
+    - name: Install Flatpak
+      dnf:
+        name: flatpak
+        state: present
 
-  - name: Allow install without prompt password
-    flatpak_remote:
-      name: flathub
-      auth: <system|user>
+    - name: Allow install without prompt password
+      flatpak_remote:
+        name: flathub
+        auth: <system|user>
 
-  - name: Add Flatpak repository
-    flatpak_remote:
-      name: flathub
-      url: https://flathub.org/repo/flathub.flatpakrepo
-      state: present
+    - name: Add the Gnome flatpak remote to the system installation
+      community.general.flatpak_remote:
+        name: gnome
+        state: present
+        flatpakrepo_url: https://sdk.gnome.org/gnome-apps.flatpakrepo
 
-  - name: Update Flatpak
-    flatpak:
-      subcommand: update
+    - name: Add the flathub flatpak repository remote to the user installation
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
-  - name: Install Flatpak applications
-    flatpak:
-      name: "{{ item }}"
-      remote: flathub
-      state: present
-    loop: "{{ flatpak_apps }}"
+    - name: Update Flatpak
+      flatpak:
+        subcommand: update
+
+    - name: Install Flatpak applications
+      flatpak:
+        name: '{{ item }}'
+        remote: flathub
+        state: present
+      loop: '{{ flatpak_apps }}'
