@@ -16,17 +16,11 @@
         name: flatpak
         state: present
 
-    - name: Add the Gnome flatpak remote to the system installation
-      community.general.flatpak_remote:
-        name: gnome
-        state: present
-        flatpakrepo_url: https://sdk.gnome.org/gnome-apps.flatpakrepo
-
     - name: Add the flathub flatpak repository remote to the user installation
       community.general.flatpak_remote:
         name: flathub
         state: present
-        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
     - name: Update Flatpak
       flatpak:
