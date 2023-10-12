@@ -15,7 +15,7 @@
 
     - name: Crear directorio para las extensiones de Gnome Shell
       file:
-        path: "{{ home_dir }}/.local/share/gnome-shell/extensions/"
+        path: '{{ home_dir }}/.local/share/gnome-shell/extensions/'
         state: directory
 
     - name: Loop through extension_urls and download files
@@ -44,6 +44,9 @@
           rm -rf "$UUID"
           mkdir -p "$UUID"
           unzip "$ZIP_FILE" -d "$UUID"
+          if [ -e "$ZIP_FILE" ]; then
+              rm "$ZIP_FILE"
+          fi
           echo "ZIP FILE: $ZIP_FILE $UUID $TARGET_DIR"
           
         fi
