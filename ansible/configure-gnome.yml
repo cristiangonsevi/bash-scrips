@@ -1,74 +1,116 @@
 ---
-- name: Instalar escritorio de GNOME y aplicaciones indispensables en Fedora
+- name: Install gnome
   hosts: localhost
   become: yes
+  vars:
+    packages:
+      - '@base-x'
+      - gnome-shell
+      - gnome-terminal
+      - nautilus
+      - gnome-calculator
+      - gnome-tweaks
+      - gnome-system-monitor
+      - gnome-software
+      - '@development-tools'
+      - htop
+      - rar
+      - libgtk2.0-0
+      - libasound2
+      - libdbus-glib-1
+      - gnome-terminal-nautilus
+      - xdg-user-dirs
+      - xdg-user-dirs-gtk
+      - ffmpegthumbnailer
+
   tasks:
-    - name: Instalar escritorio de GNOME (mínimo)
+    - name: Install packages
       dnf:
+        name: '{{ item }}'
+        state: present
+      loop: '{{ packages }}'
+
+    - name: Enable GDM
+      service:
         name: gdm
-        state: present
-    - name: Instalar gnome shell
-      dnf:
-        name: 'gnome-shell'
-        state: present
+        enabled: yes
 
-    - name: clean pacakge
-      shell: sudo dnf clean packages
+    - name: Set graphical.target as default
+      service:
+        name: graphical.target
+        state: started
+        enabled: yes
+# ---
+# - name: Instalar escritorio de GNOME y aplicaciones indispensables en Fedora
+#   hosts: localhost
+#   become: yes
+#   tasks:
+#     - name: Instalar escritorio de GNOME (mínimo)
+#       dnf:
+#         name: gdm
+#         state: present
+#     - name: Instalar gnome shell
+#       dnf:
+#         name: 'gnome-shell'
+#         state: present
 
-    - name: Install nautilus
-      dnf:
-        name: nautilus
-        state: present
+#     - name: clean pacakge
+#       shell: sudo dnf clean packages
 
-    - name: Install git
-      dnf:
-        name: git
-        state: present
+#     - name: Install nautilus
+#       dnf:
+#         name: nautilus
+#         state: present
 
-    - name: Install htop
-      dnf:
-        name: htop
-        state: present
+#     - name: Install git
+#       dnf:
+#         name: git
+#         state: present
 
-    - name: Instalar GNOME Terminal
-      dnf:
-        name: gnome-terminal
-        state: present
+#     - name: Install htop
+#       dnf:
+#         name: htop
+#         state: present
 
-    - name: Instalar Gedit
-      dnf:
-        name: gedit
-        state: present
+#     - name: Instalar GNOME Terminal
+#       dnf:
+#         name: gnome-terminal
+#         state: present
 
-    - name: Instalar Evince (visor de PDF)
-      dnf:
-        name: evince
-        state: present
+#     - name: Instalar Gedit
+#       dnf:
+#         name: gedit
+#         state: present
 
-    - name: Instalar Rhythmbox (reproductor de música)
-      dnf:
-        name: rhythmbox
-        state: present
+#     - name: Instalar Evince (visor de PDF)
+#       dnf:
+#         name: evince
+#         state: present
 
-    - name: Instalar GNOME Calendar
-      dnf:
-        name: gnome-calendar
-        state: present
+#     - name: Instalar Rhythmbox (reproductor de música)
+#       dnf:
+#         name: rhythmbox
+#         state: present
 
-    - name: Instalar GNOME Calculator
-      dnf:
-        name: gnome-calculator
-        state: present
+#     - name: Instalar GNOME Calendar
+#       dnf:
+#         name: gnome-calendar
+#         state: present
 
-    - name: Instalar GNOME Weather
-      dnf:
-        name: gnome-weather
-        state: present
+#     - name: Instalar GNOME Calculator
+#       dnf:
+#         name: gnome-calculator
+#         state: present
 
-    - name: Instalar GNOME Tweaks
-      dnf:
-        name: gnome-tweaks
-        state: present
+#     - name: Instalar GNOME Weather
+#       dnf:
+#         name: gnome-weather
+#         state: present
 
-    - name: enable gnome
-      command: sudo systemctl enable gdm
+#     - name: Instalar GNOME Tweaks
+#       dnf:
+#         name: gnome-tweaks
+#         state: present
+
+#     - name: enable gnome
+#       command: sudo systemctl enable gdm
