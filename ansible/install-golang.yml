@@ -32,12 +32,12 @@
         source /home/cg/.profile
         source '{{ home }}/.profile'
         cat '{{ home }}/.profile'
-
-      regirter: source_golang
+      register: source_golang
 
     - name: debug source
       debug:
-        msg: '{{ source_golang.stout}}'
+        msg:
+          - '{{ source_golang.stdout }}'
 
     - name: Test go version
       command: go version
