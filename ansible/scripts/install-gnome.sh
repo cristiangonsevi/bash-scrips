@@ -4,4 +4,4 @@ sudo dnf install @base-x gnome-shell gnome-terminal nautilus gnome-calculator gn
 sudo systemctl enable gdm
 sudo systemctl set-default graphical.target
 
-sudo dnf install gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk -y
+sudo dnf install gnome-terminal-nautilus -y
