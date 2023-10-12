@@ -47,6 +47,7 @@
               unzip "$ZIP_FILE" -d "$UUID"
               sudo chown "{{ user }}:{{ user }}" "$ZIP_FILE"
               gnome-extensions install "$ZIP_FILE"
+              sudo chown "{{ user }}:{{ user }}" "$UUID"
               #gnome-extensions enable "$UUID"
               #rm "$ZIP_FILE"
           fi
