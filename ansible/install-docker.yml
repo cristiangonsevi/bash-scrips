@@ -1,31 +1,28 @@
 ---
 - hosts: localhost
   become: yes
-  vars: 
+  vars:
     user: cg
   tasks:
-  - name: Remove Docker packages
-    command: dnf remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
-  - name: Install dnf-plugins-core
-    command: dnf install dnf-plugins-core
-  - name: Add Docker repository
-    command: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-  - name: Install Docker packages
-    command: dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-  - name: Start Docker service
-    command: systemctl start docker
-  - name: Create Docker group
-    group:
-      name: docker
-      state: present
-  - name: Add user to Docker group
-    user:
-      name: "{{ user }}"
-      groups:
-        - docker
-      append: yes
-  - name: Refresh Docker group membership
-    command: newgrp docker
-
-- name: INstall golang
-  ansible.builtin.import_playbook: install-golagn.yml
+    - name: Remove Docker packages
+      command: dnf remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
+    - name: Install dnf-plugins-core
+      command: dnf install dnf-plugins-core
+    - name: Add Docker repository
+      command: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+    - name: Install Docker packages
+      command: dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    - name: Start Docker service
+      command: systemctl start docker
+    - name: Create Docker group
+      group:
+        name: docker
+        state: present
+    - name: Add user to Docker group
+      user:
+        name: '{{ user }}'
+        groups:
+          - docker
+        append: yes
+    - name: Refresh Docker group membership
+      command: newgrp docker
