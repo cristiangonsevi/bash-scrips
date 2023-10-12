@@ -24,7 +24,7 @@
     - name: Cargar NVM en el perfil de usuario
       become_user: root
       lineinfile:
-        dest: '{{ home }}'/.bashrc
+        dest: '{{ home }}/.bashrc'
         line: '[[ -s '{{ home }}'/.nvm/nvm.sh ]] && source '{{ home }}'/.nvm/nvm.sh'
         insertafter: EOF
 
