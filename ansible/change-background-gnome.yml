@@ -18,7 +18,7 @@
       dconf: key="/org/gnome/desktop/background/picture-uri" value="'file:///home/{{ user }}/.{{ bg }}'"
 
     - name: Copy lockscreenfile
-      copy: src=files/lockscreen.jpg dest='/home/{{ user }}/.{{ bg }}' owner={{ user }} group={{ user }} mode=600
+      copy: src='images/{{ bg }}g' dest='/home/{{ user }}/.{{ bg }}' owner={{ user }} group={{ user }} mode=600
 
     - name: Set lock screen background
       dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/jay/.{{ bg }}'"
