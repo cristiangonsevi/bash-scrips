@@ -42,8 +42,7 @@
 
         if [ ! -z "$UUID" ]; then
           mkdir -p "$UUID"
-          mv "$ZIP_FILE" "$UUID"
-
+          unzip "$ZIP_FILE" -d "$UUID"
           echo "ZIP FILE: $ZIP_FILE $UUID $TARGET_DIR"
           
         fi
