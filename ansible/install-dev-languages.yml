@@ -24,14 +24,14 @@
     - name: Cargar NVM en el perfil de usuario
       become_user: root
       lineinfile:
-        dest: '{{ home }}/.bashrc'
-        line: '[[ -s '{{ home }}/.nvm/nvm.sh' ]] && source '{{ home }}/.nvm/nvm.sh'
+        dest: '/home/cg/.bashrc'
+        line: '[[ -s '/home/cg/.nvm/nvm.sh' ]] && source '/home/cg/.nvm/nvm.sh'
         insertafter: EOF
 
     - name: Instalar la versión de Node.js deseada
       become_user: root
       shell: |
-        source '{{ home }}/.nvm/nvm.sh'
+        source '/home/cg/.nvm/nvm.sh'
         nvm install 14
         nvm use 14
       args:
@@ -61,10 +61,10 @@
     - name: Add Go to PATH
       when: go_installed.rc == 1
       lineinfile:
-        path: '{{ home }}/.profile'
+        path: '/home/cg/.profile'
         line: 'export PATH=$PATH:/usr/local/go/bin'
         state: present
 
     - name: Reload .profile
       when: go_installed.rc == 1
-      command: source '{{ home }}/.profile'
+      command: source '/home/cg/.profile'
