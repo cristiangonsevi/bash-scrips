@@ -19,7 +19,7 @@
 
     - name: Loop through extension_urls and download files
       shell: |
-        TARGET_DIR="{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions"
+        TARGET_DIR="{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/"
         URL_OF_YOUR_ZIP_FILE="{{ item }}"
         ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
 
@@ -41,7 +41,7 @@
 
         if [ ! -z "$UUID" ]; then
           mkdir -p "$UUID"
-          mv "$ZIP_FILE" "$UUID"
+          mv -rf "$ZIP_FILE" "$UUID"
         fi
       loop: '{{ extension_urls }}'
       register: download_result
@@ -59,8 +59,8 @@
       debug:
         msg:
           - 'Las extensiones de Gnome Shell se han instalado en ~/.local/share/gnome-shell/extensions/'
-          - '{{download_result}}'
-          - '{{installed_extensions}}'
+          - '{{download_result.rc}}'
+          - '{{installed_extensions.rc}}'
 # ---
 # - name: Instalar extensiones de GNOME Shell en Fedora
 #   hosts: localhost
