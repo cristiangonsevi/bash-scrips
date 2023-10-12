@@ -2,6 +2,9 @@
   hosts: localhost
   become: yes
   tasks:
+    - name: clean pacakge
+      shell: sudo dnf clean packages
+
     - name: updating system
       become: yes
       command: sudo dnf update -y
