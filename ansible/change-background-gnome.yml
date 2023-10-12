@@ -3,7 +3,7 @@
   hosts: localhost
   vars:
     user: cg
-    bg: bg1.jpg
+    bg: bg2.jpg
   tasks:
     - name: Install python-psutil package
       become: yes
