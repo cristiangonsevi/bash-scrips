@@ -41,7 +41,8 @@
 
         if [ ! -z "$UUID" ]; then
           mkdir -p "$UUID"
-          mv -rf "$ZIP_FILE" "$UUID"
+          mv "$ZIP_FILE" "$UUID"
+          mv "$UUID" "$TARGET_DIR"
         fi
       loop: '{{ extension_urls }}'
       register: download_result
@@ -58,8 +59,9 @@
     - name: Mostrar mensaje de éxito
       debug:
         msg:
-          - 'Las extensiones de Gnome Shell se han instalado en ~/.local/share/gnome-shell/extensions/'
+          - '::::::::::::::::::::::::::'
           - '{{download_result.rc}}'
+          - ':::::::::::::::::::::::::::::::'
           - '{{installed_extensions.rc}}'
 # ---
 # - name: Instalar extensiones de GNOME Shell en Fedora
