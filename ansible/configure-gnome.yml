@@ -22,17 +22,6 @@
     - name: Install packages
       shell: 'sudo dnf install {{ item }}'
       loop: '{{ packages }}'
-
-    - name: Enable GDM
-      service:
-        name: gdm
-        enabled: yes
-
-    - name: Set graphical.target as default
-      service:
-        name: graphical.target
-        state: started
-        enabled: yes
 # ---
 # - name: Instalar escritorio de GNOME y aplicaciones indispensables en Fedora
 #   hosts: localhost
