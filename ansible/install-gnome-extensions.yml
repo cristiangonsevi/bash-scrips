@@ -42,13 +42,11 @@
 
         if [ ! -z "$UUID" ]; then
           rm -rf "$UUID"
-          # mkdir -p "$UUID"
-          # unzip "$ZIP_FILE" -d "$UUID"
-          #if [ -e "$ZIP_FILE" ]; then
-              #rm "$ZIP_FILE"
-          #fi
           gnome-extensions install "$ZIP_FILE"
           gnome-extensions enable "$UUID"
+          if [ -e "$ZIP_FILE" ]; then
+              rm "$ZIP_FILE"
+          fi
           echo "ZIP FILE: $ZIP_FILE $UUID $TARGET_DIR"
           
         fi
