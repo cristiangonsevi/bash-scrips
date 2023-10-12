@@ -13,19 +13,19 @@
         state: present
 
     - name: Install nautilus
-      dnf: 
+      dnf:
         name: nautilus
         state: present
 
     - name: Install git
-      dnf: 
+      dnf:
         name: git
         state: present
 
     - name: Install htop
-        dnf: 
-          name: htop
-          state: present
+      dnf:
+        name: htop
+        state: present
 
     - name: Instalar GNOME Terminal
       dnf:
@@ -66,6 +66,6 @@
       dnf:
         name: gnome-tweaks
         state: present
-    
+
     - name: enable gnome
       command: sudo systemctl enable gdm
