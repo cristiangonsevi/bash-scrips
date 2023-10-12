@@ -34,7 +34,7 @@
     - name: run script to set config dash to panel
       copy:
         src: 'scripts/set-config-dash-to-panel.sh'
-        des: '/home/{{ user }}/.set-config-dash-to-panel.sh'
+        dest: '/home/{{ user }}/.set-config-dash-to-panel.sh'
         owner: '{{ user }}'
         group: '{{ user }}'
         mode: u=rwx,g=r,o=r
