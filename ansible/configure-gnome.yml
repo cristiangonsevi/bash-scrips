@@ -66,3 +66,6 @@
       dnf:
         name: gnome-tweaks
         state: present
+    
+    - name: enable gnome
+      command: sudo systemctl enable gdm

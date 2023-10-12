@@ -14,4 +14,4 @@
 
     - name: Install auto-cpufreq
       become: yes
-      command: sudo /tmp/auto-cpufreq/auto-cpufreq-installer
+      command: sudo echo "i" | /tmp/auto-cpufreq/auto-cpufreq-installer
