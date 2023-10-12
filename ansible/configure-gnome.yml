@@ -12,6 +12,21 @@
         name: 'gnome-shell'
         state: present
 
+    - name: Install nautilus
+      dnf: 
+        name: nautilus
+        state: present
+
+    - name: Install git
+      dnf: 
+        name: git
+        state: present
+
+    - name: Install htop
+        dnf: 
+          name: htop
+          state: present
+
     - name: Instalar GNOME Terminal
       dnf:
         name: gnome-terminal
