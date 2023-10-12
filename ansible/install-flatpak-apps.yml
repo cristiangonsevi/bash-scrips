@@ -16,11 +16,6 @@
         name: flatpak
         state: present
 
-    - name: Allow install without prompt password
-      flatpak_remote:
-        name: flathub
-        auth: <system|user>
-
     - name: Add the Gnome flatpak remote to the system installation
       community.general.flatpak_remote:
         name: gnome
