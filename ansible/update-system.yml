@@ -2,6 +2,9 @@
   hosts: localhost
   become: yes
   tasks:
+    - name: reimport gpg
+      shell: curl https://fedoraproject.org/fedora.gpg | sudo gpg --import
+
     - name: clean pacakge
       shell: sudo dnf clean packages
 
