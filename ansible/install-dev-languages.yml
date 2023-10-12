@@ -61,7 +61,7 @@
     - name: Add Go to PATH
       when: go_installed.rc == 1
       lineinfile:
-        path: '{{ home }}'/.profile
+        path: '{{ home }}/.profile'
         line: 'export PATH=$PATH:/usr/local/go/bin'
         state: present
 
