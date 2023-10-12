@@ -44,4 +44,4 @@
         cd '/home/{{user}}'
         bash .set-config-dash-to-panel.sh
       args:
-      executable: /bin/bash
+        executable: /bin/bash
