@@ -37,7 +37,7 @@
     - name: debug source
       debug:
         msg:
-          - '{{ source_golang.stdout }}'
+          - '{{ source_golang }}'
 
     - name: Test go version
       command: go version
