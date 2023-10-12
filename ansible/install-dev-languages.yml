@@ -25,7 +25,7 @@
       become_user: root
       lineinfile:
         dest: '/home/cg/.bashrc'
-        line: '[[ -s '/home/cg/.nvm/nvm.sh' ]] && source '/home/cg/.nvm/nvm.sh'
+        line: '[[ -s /home/cg/.nvm/nvm.sh ]] && source /home/cg/.nvm/nvm.sh
         insertafter: EOF
 
     - name: Instalar la versión de Node.js deseada
