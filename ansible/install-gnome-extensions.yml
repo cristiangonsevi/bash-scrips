@@ -8,7 +8,6 @@
     user: cg
     home_dir: /home/{{ user }}
 
-
   tasks:
     - name: Instalar jq si no está instalado
       command: sudo dnf install jq -y
@@ -26,7 +25,7 @@
         if [ -e "$ZIP_FILE" ]; then
             rm "$ZIP_FILE"
         fi
-       
+
 
 
         # Change to the target directory
@@ -67,9 +66,20 @@
       register: download_result
 
     - name: Reiniciar Gnome Shell para activar las extensiones
-      command: echo "Reiniciar gnome"
+      command: sudo systemctl restart gdm
       async: 0
       poll: 0
+
+    - name: Enable extensions
+      shell: /
+        URL_OF_YOUR_ZIP_FILE="{{ item }}"
+        ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
+
+        UUID=$(unzip -p "$ZIP_FILE" metadata.json | jq -r .uuid)
+
+        gnome-extensions enable "$UUID"
+      loop: '{{ extension_url }}'
+      
 
     - name: Comprobar que las extensiones se han instalado
       command: ls -A1 ~/.local/share/gnome-shell/extensions/
@@ -79,9 +89,8 @@
       debug:
         msg:
           - '::::::::::::::::::::::::::'
-          - '{{download_result}}'
+          - 'Extensions installed and enabled'
           - ':::::::::::::::::::::::::::::::'
-          - '{{installed_extensions}}'
 # ---
 # - name: Instalar extensiones de GNOME Shell en Fedora
 #   hosts: localhost
