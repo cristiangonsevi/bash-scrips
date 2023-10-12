@@ -5,6 +5,8 @@
     - name: Set system time
       shell: 'sudo date -s "$(wget --method=HEAD -qSO- --max-redirect=0 google.com 2>&1 | sed -n ''s/^ *Date: *//p'')"'
       register: date_result
+
+    - name: debug date
       debug:
         msg: 'Date set to {{ date_result.stdout }}'
 
