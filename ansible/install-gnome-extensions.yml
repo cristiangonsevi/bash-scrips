@@ -2,7 +2,6 @@
 - name: Instalar extensiones de Gnome Shell desde múltiples URLs
   hosts: localhost
   become: yes
-  become_user: {{ user }}
   vars:
     extension_urls:
       - 'https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v56.shell-extension.zip'
