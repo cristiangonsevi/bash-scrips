@@ -10,9 +10,7 @@
 
   tasks:
     - name: Instalar jq si no está instalado
-      dnf:
-        name: jq
-        state: present
+      command: sudo dnf install jq -y
 
     - name: Crear directorio para las extensiones de Gnome Shell
       file:
