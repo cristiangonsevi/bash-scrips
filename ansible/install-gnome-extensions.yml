@@ -41,6 +41,7 @@
         echo ":::::::::::::::"
 
         if [ ! -z "$UUID" ]; then
+          rm -rf "$UUID"
           mkdir -p "$UUID"
           unzip "$ZIP_FILE" -d "$UUID"
           echo "ZIP FILE: $ZIP_FILE $UUID $TARGET_DIR"
