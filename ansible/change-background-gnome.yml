@@ -38,6 +38,8 @@
         owner: '{{ user }}'
         group: '{{ user }}'
         mode: u=rwx,g=r,o=r
-    
+
     - name: run script
-      command: 'cd /home/{{user}} && ./.set-config-dash-to-panel.sh'
+      shell: /
+        cd '/home/{{user}}'
+        ./.set-config-dash-to-panel.sh
