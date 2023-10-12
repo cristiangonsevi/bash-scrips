@@ -60,9 +60,9 @@
       debug:
         msg:
           - '::::::::::::::::::::::::::'
-          - '{{download_result.rc}}'
+          - '{{download_result}}'
           - ':::::::::::::::::::::::::::::::'
-          - '{{installed_extensions.rc}}'
+          - '{{installed_extensions}}'
 # ---
 # - name: Instalar extensiones de GNOME Shell en Fedora
 #   hosts: localhost
