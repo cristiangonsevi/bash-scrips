@@ -12,6 +12,9 @@
         name: 'gnome-shell'
         state: present
 
+    - name: clean pacakge
+      shell: sudo dnf clean packages
+
     - name: Install nautilus
       dnf:
         name: nautilus
