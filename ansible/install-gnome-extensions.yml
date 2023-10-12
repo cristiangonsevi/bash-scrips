@@ -70,15 +70,9 @@
       async: 0
       poll: 0
 
-    - name: Enable extensions
-      shell: /
-        URL_OF_YOUR_ZIP_FILE="{{ item }}"
-        ZIP_FILE=$(basename "$URL_OF_YOUR_ZIP_FILE")
+    - name: Load dash-to-panel config
+      command: dconf load /org/gnome/shell/extensions/dash-to-panel/ < config/dash-to-panel.config.txt
 
-        UUID=$(unzip -p "$ZIP_FILE" metadata.json | jq -r .uuid)
-
-        gnome-extensions enable "$UUID"
-      loop: '{{ extension_url }}'
       
 
     - name: Comprobar que las extensiones se han instalado
