@@ -26,11 +26,6 @@
     - name: Copy dash to panel config
       copy: src='config/dash-to-panel.config.txt' dest='/home/{{ user }}/.dash-to-panel.config.txt' owner={{ user }} group={{ user }}
 
-    - name: Set dash to panel config
-      dconf:
-        key: '/org/gnome/shell/extensions/dash-to-panel'
-        value: "'file:///home/{{ user }}/.dash-to-panel.config.txt'"
-
     - name: copy script to set config dash to panel
       copy:
         src: 'scripts/set-config-dash-to-panel.sh'
