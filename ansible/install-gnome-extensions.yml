@@ -46,8 +46,9 @@
           pwd
           if [ -e "$ZIP_FILE" ]; then
               unzip "$ZIP_FILE" -d "$UUID"
-              #gnome-extensions install "$ZIP_FILE"
-              gnome-extensions enable "$UUID"
+              sudo chown "{{ user }}:{{ user }}" "$ZIP_FILE"
+              gnome-extensions install "$ZIP_FILE"
+              #gnome-extensions enable "$UUID"
               #rm "$ZIP_FILE"
           fi
           echo "ZIP FILE: $ZIP_FILE $UUID $TARGET_DIR"
