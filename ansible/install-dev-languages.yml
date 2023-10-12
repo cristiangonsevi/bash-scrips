@@ -39,15 +39,29 @@
         name: python3
         state: present
 
-    - name: Comprobar si Go ya está instalado
-      shell: command -v go &>/dev/null
+    - name: Check if Go is installed
+      command: command -v go
       register: go_installed
-      ignore_errors: yes
 
-    - name: Descargar e instalar Go si no está instalado
-      command: |
-        curl -OL https://go.dev/dl/go1.21.1.linux-amd64.tar.gz
-        sudo tar -C /usr/local -xvf go1.21.1.linux-amd64.tar.gz
-        echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a ~/.profile >/dev/null
-        source ~/.profile
-      when: go_installed.rc != 0
+    - name: Download Go if it is not installed
+      when: go_installed.rc == 1
+      uri:
+        url: https://go.dev/dl/go1.21.1.linux-amd64.tar.gz
+        dest: /tmp/go1.21.1.linux-amd64.tar.gz
+
+    - name: Extract Go
+      when: go_installed.rc == 1
+      unarchive:
+        src: /tmp/go1.21.1.linux-amd64.tar.gz
+        dest: /usr/local
+
+    - name: Add Go to PATH
+      when: go_installed.rc == 1
+      lineinfile:
+        path: ~/.profile
+        line: 'export PATH=$PATH:/usr/local/go/bin'
+        state: present
+
+    - name: Reload .profile
+      when: go_installed.rc == 1
+      command: source ~/.profile
