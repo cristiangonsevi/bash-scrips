@@ -66,7 +66,9 @@
       register: download_result
 
     - name: Load dash-to-panel config
-      shell: dconf load /org/gnome/shell/extensions/dash-to-panel/ < config/dash-to-panel.config.txt
+      shell: /
+       echo '{{ user }}'
+       dconf load /org/gnome/shell/extensions/dash-to-panel/ < config/dash-to-panel.config.txt
 
       
 
